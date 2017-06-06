@@ -101,7 +101,11 @@
 			newQuestion: function() {
 				//choose which question
 				trivia.currentQuestion = trivia.questions[trivia.randomNumber(0, trivia.questions.length)];
-				return trivia.currentQuestion
+				if (trivia.currentQuestion === undefined)
+					alert("out of questions.  Sorry")
+				else {
+					return trivia.currentQuestion
+				}
 			},
 
 			printScore: function() {
@@ -132,6 +136,10 @@
 
 			point: function() {
 				score += 1;
+			},
+
+			randomizeQuestion: function() {
+
 			}
 		}
 
@@ -141,16 +149,52 @@
 			//trivia.startTimer
 		});
 		$('#answer1').on("click", function(event) {
-			if ($('#answer1').text() == trivia.currentQuestion.answer)
+			var answer = $('#answer1').text()
+			if (answer == trivia.currentQuestion.answer) {
+				console.log("winner!");
+				trivia.point();
+				trivia.nextQuestion();
+			}
+			else {
+				console.log("Wrong, next question");
+				trivia.nextQuestion();
+			}
 		});
 		$('#answer2').on("click", function(event) {
-			
+			var answer = $('#answer2').text();
+			if (answer == trivia.currentQuestion.answer) {
+				console.log("winner!");
+				trivia.point();
+				trivia.nextQuestion();
+			}
+			else {
+				console.log("Wrong, next question");
+				trivia.nextQuestion();
+			}
 		});
 		$('#answer3').on("click", function(event) {
-			
+			var answer = $('#answer3').text();
+			if (answer == trivia.currentQuestion.answer) {
+				console.log("winner!");
+				trivia.point();
+				trivia.nextQuestion();
+			}
+			else {
+				console.log("Wrong, next question")
+				trivia.nextQuestion();
+			}
 		});
 		$('#answer4').on("click", function(event) {
-			
+			var answer = $('#answer4').text();
+			if (answer == trivia.currentQuestion.answer) {
+				console.log("winner!");
+				trivia.point();
+				trivia.nextQuestion();
+			}
+			else {
+				console.log("Wrong, next question");
+				trivia.nextQuestion();
+			}
 		});
 	</script>
 </body>
