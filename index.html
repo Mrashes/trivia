@@ -6,10 +6,52 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Latest compiled and minified CSS & JS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<script src="//code.jquery.com/jquery.js"></script>
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+	<script src="assets/js/jquery.js"></script>
 </head>
 <body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="text-center"><strong>Trivia</strong></h1>
+			<h4 class="text-center">To cross the otherside you see, you must answer questions 3</h4>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-5" >
+				<div class="row">
+					<h3 class="text-center">Question</h3>
+				</div>
+				<!-- treepic -->
+				<div id="question" class="question">
+					<h4 class="text-center" id="question">We are asking a question</h4>
+				</div>
+			</div>
+			<div class="col-lg-7 margTop">
+				<!-- Answers -->
+				<div class="panel panel-default">
+					<div class="panel-body text-center" id="answer1">
+						Answer 1
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body text-center" id="answer2">
+						Answer2
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body text-center" id="answer3">
+						Answer 3
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body text-center" id="answer4">
+						Answer 4
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 	<script type="text/javascript">
 		var trivia = {
 			//storage of questions.  Its an array so questions[x] is which question you have.
@@ -37,6 +79,15 @@
 				}
 			],
 
+			randomNumber: function(min, max) {
+				return Math.floor(Math.random() * (max - min)) + min;
+			},
+
+			//Draw new question
+			newQuestion: function() {
+				//choose which question
+				var question = trivia.questions[trivia.randomNumber(0, trivia.questions.length-1)]
+			}
 
 		}
 	</script>
