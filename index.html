@@ -21,11 +21,11 @@
 					<h3 class="text-center">Question</h3>
 				</div>
 				<!-- Question -->
-				<div class="question">
-					<h4 class="text-center" id="question">We are asking a question</h4>
+				<div id="question" class="question">
+					<button class="center-block" id="start">Commence</button>
 				</div>
 			</div>
-			<div class="col-lg-7 margTop">
+			<div class="col-lg-7">
 				<!-- Answers -->
 				<div class="panel panel-default">
 					<div class="panel-body text-center" id="answer1">
@@ -45,6 +45,11 @@
 				<div class="panel panel-default">
 					<div class="panel-body text-center" id="answer4">
 						Answer 4
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-body text-center" id="score">
+						Score
 					</div>
 				</div>
 			</div>
@@ -79,8 +84,15 @@
 				}
 			],
 
+			//declaration of variables
 
+			usedQuestions: [],
+			currentQuestion: "",
+			timer: 10,
+			score: 0,
 
+			//functions
+			//random number generator (non-inclusive)
 			randomNumber: function(min, max) {
 				return Math.floor(Math.random() * (max - min)) + min;
 			},
@@ -88,30 +100,58 @@
 			//Draw new question
 			newQuestion: function() {
 				//choose which question
-				return trivia.questions[trivia.randomNumber(0, trivia.questions.length)]
+				trivia.currentQuestion = trivia.questions[trivia.randomNumber(0, trivia.questions.length)];
+				return trivia.currentQuestion
 			},
 
-			printCurrentTrivia: function(input){
-				$('#question').text(input.question);
-				$('#answer1').text(input.answer);
-				$('#answer2').text(input.fake1);
-				$('#answer3').text(input.fake2);
-				$('#answer4').text(input.fake3);
+			printScore: function() {
+				$('#score').text(trivia.score);
 			},
 
-			removeQuestion: function{
-				// I'm looking for a way to not reuse questions  This was the solution from hangman but I can't see an effective way to move them from one list to another...  maybe its becasue it's broken into more functions?  I'm a bit lost on it
+			//prints trivia question and answers
+			printCurrentTrivia: function(){
+				$('#question').html("<h3 class=\"text-center\">" + trivia.currentQuestion.question + "</h3>");
+				$('#answer1').text(trivia.currentQuestion.answer);
+				$('#answer2').text(trivia.currentQuestion.fake1);
+				$('#answer3').text(trivia.currentQuestion.fake2);
+				$('#answer4').text(trivia.currentQuestion.fake3);
+			},
 
-			//	// Legacy code
-				// this.currentWord = []
-				// this.usedWords.push(this.words[stash]);
-				// // assign new currentWord
-				// this.currentWord = this.words[stash];
-				// // scraps word that has been used
-				// this.words.splice(stash, 1);
-				// this.displayWord();				
+			//removes current question from the question pool
+			removeQuestion: function() {
+				trivia.usedQuestions.push(trivia.currentQuestion)
+				trivia.questions.splice(trivia.questions.indexOf(trivia.currentQuestion), 1);		
+			},
+
+			nextQuestion: function() {
+				trivia.newQuestion();
+				trivia.printCurrentTrivia();
+				trivia.removeQuestion();
+				trivia.printScore();
+			},
+
+			point: function() {
+				score += 1;
 			}
 		}
+
+		//activating scripts
+		$("#start").on("click", function() {
+			trivia.nextQuestion()
+			//trivia.startTimer
+		});
+		$('#answer1').on("click", function(event) {
+			if ($('#answer1').text() == trivia.currentQuestion.answer)
+		});
+		$('#answer2').on("click", function(event) {
+			
+		});
+		$('#answer3').on("click", function(event) {
+			
+		});
+		$('#answer4').on("click", function(event) {
+			
+		});
 	</script>
 </body>
 </html>
