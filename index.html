@@ -63,10 +63,8 @@
 			questions:  [
 				{
 					question: "question 1",
-					answer: "answer 1",
-					fake1: "answer 2",
-					fake2: "answer 3",
-					fake3: "answer 4",
+					answers: ["answer 1", "answer 2", "answer 3", "answer 4",]
+					right: trivia.answers[0]
 				},
 				{
 					question: "question 2",
@@ -139,7 +137,7 @@
 			},
 
 			randomizeQuestion: function() {
-
+				trivia.randomNumber(0, triva.currentQuestion.answers.length)
 			}
 		}
 
