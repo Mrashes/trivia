@@ -109,7 +109,7 @@
 			newQuestion: function() {
 				//choose which question
 				trivia.currentQuestion = trivia.questions[trivia.randomNumber(0, trivia.questions.length)];
-				if (trivia.currentQuestion === undefined)
+				if (trivia.currentQuestion.length === 0)
 					alert("out of questions.  Sorry")
 				else {
 					return trivia.currentQuestion
@@ -140,16 +140,17 @@
 			},
 
 			nextQuestion: function() {
-				if (trivia.questions === undefined){
-					alert("Out of Questions")
-					//have it create screen of score and time?
-				}
-				else {
+				if (trivia.questions.length > 0){
 					trivia.newQuestion();
 					trivia.printCurrentTrivia();
 					trivia.removeQuestion();
 					// trivia.printScore();
 					trivia.perSecond();
+				}
+				else {
+					alert("Out of Questions");
+					console.log("broke from nextquestion");
+					//have it create screen of score and time?
 				}
 			},
 
@@ -165,15 +166,25 @@
 				trivia.timer -= 1
 				trivia.printTime()
 				if (trivia.timer === 0) {
-					trivia.timer = 10;
-					trivia.nextQuestion();
+					if (trivia.questions.length === 0){
+						alert("out of questions.  Sorry")
+					}
+					else {
+						trivia.timer = 10;
+						trivia.nextQuestion();
+					}
 				}
 			},
 
 			perSecond: function() {
 				for (var i = 11; i>=1; i--) {
-					trivia.printTime()
-					setTimeout(trivia.clock, 1000*i);
+					if (trivia.timer===0){
+						//find a way to break this all
+					}
+					else {
+						trivia.printTime()
+						setTimeout(trivia.clock, 1000*i);
+					}
 				}
 			}
 		}
