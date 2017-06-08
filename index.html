@@ -109,8 +109,10 @@
 			newQuestion: function() {
 				//choose which question
 				trivia.currentQuestion = trivia.questions[trivia.randomNumber(0, trivia.questions.length)];
-				if (trivia.currentQuestion.length === 0)
+				if (trivia.currentQuestion.length === 0){
 					alert("out of questions.  Sorry")
+					console.log('newQuestion');
+				}
 				else {
 					return trivia.currentQuestion
 				}
@@ -129,10 +131,6 @@
 				$('#answer4').text(trivia.currentQuestion.answers[3]);
 			},
 
-			printTime: function() {
-				$('#timer').text(trivia.timer)
-			},
-
 			//removes current question from the question pool
 			removeQuestion: function() {
 				trivia.usedQuestions.push(trivia.currentQuestion)
@@ -145,11 +143,10 @@
 					trivia.printCurrentTrivia();
 					trivia.removeQuestion();
 					// trivia.printScore();
-					trivia.perSecond();
+					// trivia.perSecond();
 				}
 				else {
-					alert("Out of Questions");
-					console.log("broke from nextquestion");
+					console.log("broke from next question");
 					//have it create screen of score and time?
 				}
 			},
@@ -162,31 +159,36 @@
 				trivia.randomNumber(0, triva.currentQuestion.answers.length)
 			},
 
-			clock: function() {
-				trivia.timer -= 1
-				trivia.printTime()
-				if (trivia.timer === 0) {
-					if (trivia.questions.length === 0){
-						alert("out of questions.  Sorry")
-					}
-					else {
-						trivia.timer = 10;
-						trivia.nextQuestion();
-					}
-				}
-			},
+			// clock: function() {
+			// 	trivia.timer -= 1
+			// 	trivia.printTime()
+				
+			// 	if (trivia.timer <= 0) {
+			// 		if (trivia.questions.length === 0){
+			// 			alert("out of questions.  Sorry")
+			// 		}
+			// 		else {
+			// 			trivia.timer = 10;
+			// 			trivia.nextQuestion();
+			// 		}
+			// 	}
+			// },
 
-			perSecond: function() {
-				for (var i = 11; i>=1; i--) {
-					if (trivia.timer===0){
-						//find a way to break this all
-					}
-					else {
-						trivia.printTime()
-						setTimeout(trivia.clock, 1000*i);
-					}
-				}
-			}
+			// perSecond: function() {
+			// 	for (var i = 10; i>=1; i--) {
+			// 		if (trivia.timer===0){
+			// 			//find a way to break this all
+			// 		}
+			// 		else {
+			// 			trivia.printTime()
+			// 			setTimeout(trivia.clock, 1000*i);
+			// 		}
+			// 	}
+			// },
+
+			// printTime: function() {
+			// 	$('#timer').text(trivia.timer)
+			// },
 		}
 
 		//activating scripts
