@@ -63,7 +63,8 @@
 		var trivia = {
 			//storage of questions.  Its an array so questions[x] is which question you have.
 			questions:  [
-				{
+				//video games
+				[{
 					question: "Which of these games star a bear and a bird",
 					answers: ["Banjo-Kazooie", "Crash Bandicoot", "Street Fighter III", "Lion King",],
 					right: "Banjo-Kazooie"
@@ -112,7 +113,10 @@
 					question: "This fighting game series is famous for line \'Finish Him\'",
 					answers: ["Injustice", "Street Fighter", "Clay Fighter 63.5", "Mortal Kombat",],
 					right: "Mortal Kombat"
-				},
+				}],
+				[
+				//bachelorette questions
+				],
 			],
 
 			//declaration of variables
@@ -123,6 +127,7 @@
 			score: 0,
 			randomQ: [],
 			referenceQ: [0,1,2,3],
+			currentTopic: 0,
 
 			//functions
 			//random number generator (non-inclusive)
@@ -133,7 +138,7 @@
 			//Draw new question
 			newQuestion: function() {
 				//choose which question
-				trivia.currentQuestion = trivia.questions[trivia.randomNumber(0, trivia.questions.length)];
+				trivia.currentQuestion = trivia.questions[trivia.currentTopic][trivia.randomNumber(0, trivia.questions[trivia.currentTopic].length)];
 				if (trivia.currentQuestion.length === 0){
 					alert("out of questions.  Sorry")
 					console.log('newQuestion');
@@ -161,11 +166,11 @@
 			//removes current question from the question pool
 			removeQuestion: function() {
 				trivia.usedQuestions.push(trivia.currentQuestion)
-				trivia.questions.splice(trivia.questions.indexOf(trivia.currentQuestion), 1);		
+				trivia.questions[trivia.currentTopic].splice(trivia.questions[trivia.currentTopic].indexOf(trivia.currentQuestion), 1);		
 			},
 
 			nextQuestion: function() {
-				if (trivia.questions.length > 0){
+				if (trivia.questions[trivia.currentTopic].length > 0){
 					trivia.newQuestion();
 					trivia.printCurrentTrivia();
 					trivia.printScore();
@@ -176,6 +181,7 @@
 				else {
 					console.log("broke from next question");
 					//have it create screen of score and time?
+					trivia.winBoard()
 				}
 			},
 
@@ -205,14 +211,14 @@
 				}
 			},
 
-			clearBoard: function() {}
+			winBoard: function() {}
 
 			// clock: function() {
 			// 	trivia.timer -= 1
 			// 	trivia.printTime()
 				
 			// 	if (trivia.timer <= 0) {
-			// 		if (trivia.questions.length === 0){
+			// 		if (trivia.questions[trivia.currentTopic].length === 0){
 			// 			alert("out of questions.  Sorry")
 			// 		}
 			// 		else {
