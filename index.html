@@ -65,26 +65,30 @@
 			questions:  [
 				{
 					question: "question 1",
-					// answers: ["answer 1", "answer 2", "answer 3", "answer 4",]
-					// right: trivia.answers[0]
-					answer: "Answer 1",
-					fake1: "Answer 2",
-					fake2: "Answer 3",
-					fake3: "Answer 4",
+					answers: ["answer 1", "answer 2", "answer 3", "answer 4",],
+					right: "answer 2"
+					// answer: "Answer 1",
+					// fake1: "Answer 2",
+					// fake2: "Answer 3",
+					// fake3: "Answer 4",
 				},
 				{
 					question: "question 2",
-					answer: "Answer 1",
-					fake1: "Answer 2",
-					fake2: "Answer 3",
-					fake3: "Answer 4",
+					answers: ["answer 1", "answer 2", "answer 3", "answer 4",],
+					right: "answer 1"
+					// answer: "Answer 1",
+					// fake1: "Answer 2",
+					// fake2: "Answer 3",
+					// fake3: "Answer 4",
 				},
 				{
 					question: "question 3",
-					answer: "ANSWER 1",
-					fake1: "ANSWER 2",
-					fake2: "ANSWER 3",
-					fake3: "ANSWER 4",
+					answers: ["answer 1", "answer 2", "answer 3", "answer 4",],
+					right: "answer 3"
+					// answer: "ANSWER 1",
+					// fake1: "ANSWER 2",
+					// fake2: "ANSWER 3",
+					// fake3: "ANSWER 4",
 				}
 			],
 
@@ -119,10 +123,10 @@
 			//prints trivia question and answers
 			printCurrentTrivia: function(){
 				$('#question').html("<h3 class=\"text-center\">" + trivia.currentQuestion.question + "</h3>");
-				$('#answer1').text(trivia.currentQuestion.answer);
-				$('#answer2').text(trivia.currentQuestion.fake1);
-				$('#answer3').text(trivia.currentQuestion.fake2);
-				$('#answer4').text(trivia.currentQuestion.fake3);
+				$('#answer1').text(trivia.currentQuestion.answers[0]);
+				$('#answer2').text(trivia.currentQuestion.answers[1]);
+				$('#answer3').text(trivia.currentQuestion.answers[2]);
+				$('#answer4').text(trivia.currentQuestion.answers[3]);
 			},
 
 			printTime: function() {
@@ -136,15 +140,21 @@
 			},
 
 			nextQuestion: function() {
-				trivia.newQuestion();
-				trivia.printCurrentTrivia();
-				trivia.removeQuestion();
-				trivia.printScore();
-				trivia.perSecond();
+				if (trivia.questions === undefined){
+					alert("Out of Questions")
+					//have it create screen of score and time?
+				}
+				else {
+					trivia.newQuestion();
+					trivia.printCurrentTrivia();
+					trivia.removeQuestion();
+					// trivia.printScore();
+					trivia.perSecond();
+				}
 			},
 
 			point: function() {
-				score += 1;
+				trivia.score += 1;
 			},
 
 			randomizeQuestion: function() {
@@ -161,49 +171,12 @@
 			},
 
 			perSecond: function() {
-				for (var i = 10; i>=0; i--) {
+				for (var i = 11; i>=1; i--) {
+					trivia.printTime()
 					setTimeout(trivia.clock, 1000*i);
 				}
 			}
 		}
-
-
-
-		// Legacy for assistance
-		// setTimeout(fiveSeconds, 1000 * 5);
-		// setTimeout(tenSeconds, 1000 * 10);
-		// setTimeout(timeUp, 1000 * 15);
-
-		// //  Step 3:
-		// //  Fill in the blanks to these functions.
-		// function fiveSeconds() {
-
-		//   // in the element with an id of time-left add an h2 saying About 10 Seconds Left!
-		//   // console log 10 seconds left
-		//   $("#time-left").append("<h2>About 10 Seconds Left!</h2>");
-		//   console.log("10 seconds left");
-		// }
-
-		// function tenSeconds() {
-
-		//   // in the element with an id of time-left add an h2 saying About 5 Seconds Left!
-		//   // console log 5 seconds left
-		//   $("#time-left").append("<h2>About 5 Seconds Left!</h2>");
-		//   console.log("5 seconds left");
-		// }
-
-		// function timeUp() {
-
-		//   // in the element with an id of time-left add an h2 saying Time's Up!
-		//   // console log done
-		//   console.log("done");
-		//   $("#time-left").append("<h2>Time's Up!</h2>");
-		//   console.log("time is up");
-
-		//   //  The following line will play the audio file we linked to above:
-		//   audio.play();
-		// }
-
 
 		//activating scripts
 		$("#start").on("click", function() {
@@ -212,7 +185,7 @@
 		});
 		$('#answer1').on("click", function(event) {
 			var answer = $('#answer1').text()
-			if (answer == trivia.currentQuestion.answer) {
+			if (answer == trivia.currentQuestion.right) {
 				console.log("winner!");
 				trivia.point();
 				trivia.nextQuestion();
@@ -224,7 +197,7 @@
 		});
 		$('#answer2').on("click", function(event) {
 			var answer = $('#answer2').text();
-			if (answer == trivia.currentQuestion.answer) {
+			if (answer == trivia.currentQuestion.right) {
 				console.log("winner!");
 				trivia.point();
 				trivia.nextQuestion();
@@ -236,7 +209,7 @@
 		});
 		$('#answer3').on("click", function(event) {
 			var answer = $('#answer3').text();
-			if (answer == trivia.currentQuestion.answer) {
+			if (answer == trivia.currentQuestion.right) {
 				console.log("winner!");
 				trivia.point();
 				trivia.nextQuestion();
@@ -248,7 +221,7 @@
 		});
 		$('#answer4').on("click", function(event) {
 			var answer = $('#answer4').text();
-			if (answer == trivia.currentQuestion.answer) {
+			if (answer == trivia.currentQuestion.right) {
 				console.log("winner!");
 				trivia.point();
 				trivia.nextQuestion();
