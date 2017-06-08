@@ -64,32 +64,55 @@
 			//storage of questions.  Its an array so questions[x] is which question you have.
 			questions:  [
 				{
-					question: "question 1",
-					answers: ["answer 1", "answer 2", "answer 3", "answer 4",],
-					right: "answer 2"
-					// answer: "Answer 1",
-					// fake1: "Answer 2",
-					// fake2: "Answer 3",
-					// fake3: "Answer 4",
+					question: "Which of these games star a bear and a bird",
+					answers: ["Banjo-Kazooie", "Crash Bandicoot", "Street Fighter III", "Lion King",],
+					right: "Banjo-Kazooie"
 				},
 				{
-					question: "question 2",
-					answers: ["answer 1", "answer 2", "answer 3", "answer 4",],
-					right: "answer 1"
-					// answer: "Answer 1",
-					// fake1: "Answer 2",
-					// fake2: "Answer 3",
-					// fake3: "Answer 4",
+					question: "This dragon stared in a hit video game franchise",
+					answers: ["Crash Bandicoot", "Spyro", "Lara Croft", "Solid Snake",],
+					right: "Spyro"
 				},
 				{
-					question: "question 3",
-					answers: ["answer 1", "answer 2", "answer 3", "answer 4",],
-					right: "answer 3"
-					// answer: "ANSWER 1",
-					// fake1: "ANSWER 2",
-					// fake2: "ANSWER 3",
-					// fake3: "ANSWER 4",
-				}
+					question: "Which system came first?",
+					answers: ["Playstation", "Dreamcast", "Genesis", "Xbox",],
+					right: "Playstation"
+				},
+				{
+					question: "This company started as a playing card manufacturer",
+					answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
+					right: "Nintendo"
+				},
+				{
+					question: "This company created the game and watch handheld system",
+					answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
+					right: "Nintendo"
+				},
+				{
+					question: "This game series stars Nathan Drake",
+					answers: ["Uncharted", "Dark Souls", "Pokemon", "Animal Crossing",],
+					right: "Uncharted"
+				},
+				{
+					question: "Who created the Legend of Zelda?",
+					answers: ["Satoru Iwata", "David Cage", "Shigeru Miyamoto", "Yuji Naka",],
+					right: "Shigeru Miyamoto"
+				},
+				{
+					question: "Which company had the slogan \'Genesis does what Nintendon\'t\'?",
+					answers: ["Oculus", "Sony", "Microsoft", "Sega",],
+					right: "Sega"
+				},
+				{
+					question: "Which system came first?",
+					answers: ["Xbox 360", "Wii U", "PS4", "Oculus",],
+					right: "Xbox 360"
+				},
+				{
+					question: "This fighting game series is famous for line \'Finish Him\'",
+					answers: ["Injustice", "Street Fighter", "Clay Fighter 63.5", "Mortal Kombat",],
+					right: "Mortal Kombat"
+				},
 			],
 
 			//declaration of variables
@@ -98,6 +121,8 @@
 			currentQuestion: "",
 			timer: 10,
 			score: 0,
+			randomQ: [],
+			referenceQ: [0,1,2,3],
 
 			//functions
 			//random number generator (non-inclusive)
@@ -119,16 +144,18 @@
 			},
 
 			printScore: function() {
-				$('#score').text(trivia.score);
+				//on timer while I have the time taken out
+				$('#timer').text(trivia.score);
 			},
 
 			//prints trivia question and answers
 			printCurrentTrivia: function(){
+				trivia.randomizeQuestion()
 				$('#question').html("<h3 class=\"text-center\">" + trivia.currentQuestion.question + "</h3>");
-				$('#answer1').text(trivia.currentQuestion.answers[0]);
-				$('#answer2').text(trivia.currentQuestion.answers[1]);
-				$('#answer3').text(trivia.currentQuestion.answers[2]);
-				$('#answer4').text(trivia.currentQuestion.answers[3]);
+				$('#answer1').text(trivia.currentQuestion.answers[trivia.randomQ[0]]);
+				$('#answer2').text(trivia.currentQuestion.answers[trivia.randomQ[1]]);
+				$('#answer3').text(trivia.currentQuestion.answers[trivia.randomQ[2]]);
+				$('#answer4').text(trivia.currentQuestion.answers[trivia.randomQ[3]]);
 			},
 
 			//removes current question from the question pool
@@ -141,6 +168,7 @@
 				if (trivia.questions.length > 0){
 					trivia.newQuestion();
 					trivia.printCurrentTrivia();
+					trivia.printScore();
 					trivia.removeQuestion();
 					// trivia.printScore();
 					// trivia.perSecond();
@@ -156,8 +184,28 @@
 			},
 
 			randomizeQuestion: function() {
-				trivia.randomNumber(0, triva.currentQuestion.answers.length)
+				trivia.randomQ = [];
+				trivia.referenceQ = [0,1,2,3];
+				for (var i=0; i<4; i++){
+					var a = trivia.randomNumber(0, trivia.referenceQ.length);
+					trivia.randomQ.push(trivia.referenceQ[a]);
+					trivia.referenceQ.splice(a, 1);
+				}
 			},
+
+			checkAnswer: function(answer) {
+				if (answer == trivia.currentQuestion.right) {
+					console.log("winner!");
+					trivia.point();
+					trivia.nextQuestion();
+				}
+				else {
+					console.log("Wrong, next question")
+					trivia.nextQuestion();
+				}
+			},
+
+			clearBoard: function() {}
 
 			// clock: function() {
 			// 	trivia.timer -= 1
@@ -197,52 +245,20 @@
 			//trivia.startTimer
 		});
 		$('#answer1').on("click", function(event) {
-			var answer = $('#answer1').text()
-			if (answer == trivia.currentQuestion.right) {
-				console.log("winner!");
-				trivia.point();
-				trivia.nextQuestion();
-			}
-			else {
-				console.log("Wrong, next question");
-				trivia.nextQuestion();
-			}
+			var answer = $('#answer1').text();
+			trivia.checkAnswer(answer);
 		});
 		$('#answer2').on("click", function(event) {
 			var answer = $('#answer2').text();
-			if (answer == trivia.currentQuestion.right) {
-				console.log("winner!");
-				trivia.point();
-				trivia.nextQuestion();
-			}
-			else {
-				console.log("Wrong, next question");
-				trivia.nextQuestion();
-			}
+			trivia.checkAnswer(answer)
 		});
 		$('#answer3').on("click", function(event) {
 			var answer = $('#answer3').text();
-			if (answer == trivia.currentQuestion.right) {
-				console.log("winner!");
-				trivia.point();
-				trivia.nextQuestion();
-			}
-			else {
-				console.log("Wrong, next question")
-				trivia.nextQuestion();
-			}
+			trivia.checkAnswer(answer)
 		});
 		$('#answer4').on("click", function(event) {
 			var answer = $('#answer4').text();
-			if (answer == trivia.currentQuestion.right) {
-				console.log("winner!");
-				trivia.point();
-				trivia.nextQuestion();
-			}
-			else {
-				console.log("Wrong, next question");
-				trivia.nextQuestion();
-			}
+			trivia.checkAnswer(answer)
 		});
 	</script>
 </body>
