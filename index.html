@@ -15,7 +15,7 @@
 			<h4 class="text-center">To cross the otherside you see, you must answer questions 3</h4>
 		</div>
 
-		<div class="row" id="winScreen">
+		<div class="row" id="replacer">
 			<div class="col-lg-5" >
 				<div class="row">
 					<h3 class="text-center">Question</h3>
@@ -118,57 +118,58 @@
 				}
 				],
 
-				//second topic
-				[{
-					question: "Which of these games star a bear and a bird",
-					answers: ["Banjo-Kazooie", "Crash Bandicoot", "Street Fighter III", "Lion King",],
-					right: "Banjo-Kazooie"
-				},
+				//second topic cant decide what it should be
+				[
 				{
-					question: "This dragon stared in a hit video game franchise",
-					answers: ["Crash Bandicoot", "Spyro", "Lara Croft", "Solid Snake",],
-					right: "Spyro"
+					question: "I haven't decided on this topic",
+					answers: ["Oh Really?", "Try chicago", "Or science", "Or TV shows",],
+					right: "Oh Really?"
 				},
-				{
-					question: "Which system came first?",
-					answers: ["Playstation", "Dreamcast", "Genesis", "Xbox",],
-					right: "Playstation"
-				},
-				{
-					question: "This company started as a playing card manufacturer",
-					answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
-					right: "Nintendo"
-				},
-				{
-					question: "This company created the game and watch handheld system",
-					answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
-					right: "Nintendo"
-				},
-				{
-					question: "This game series stars Nathan Drake",
-					answers: ["Uncharted", "Dark Souls", "Pokemon", "Animal Crossing",],
-					right: "Uncharted"
-				},
-				{
-					question: "Who created the Legend of Zelda?",
-					answers: ["Satoru Iwata", "David Cage", "Shigeru Miyamoto", "Yuji Naka",],
-					right: "Shigeru Miyamoto"
-				},
-				{
-					question: "Which company had the slogan \'Genesis does what Nintendon\'t\'?",
-					answers: ["Oculus", "Sony", "Microsoft", "Sega",],
-					right: "Sega"
-				},
-				{
-					question: "Which system came first?",
-					answers: ["Xbox 360", "Wii U", "PS4", "Oculus",],
-					right: "Xbox 360"
-				},
-				{
-					question: "This fighting game series is famous for line \'Finish Him\'",
-					answers: ["Injustice", "Street Fighter", "Clay Fighter 63.5", "Mortal Kombat",],
-					right: "Mortal Kombat"
-				}
+				// {
+				// 	question: "This dragon stared in a hit video game franchise",
+				// 	answers: ["Crash Bandicoot", "Spyro", "Lara Croft", "Solid Snake",],
+				// 	right: "Spyro"
+				// },
+				// {
+				// 	question: "Which system came first?",
+				// 	answers: ["Playstation", "Dreamcast", "Genesis", "Xbox",],
+				// 	right: "Playstation"
+				// },
+				// {
+				// 	question: "This company started as a playing card manufacturer",
+				// 	answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
+				// 	right: "Nintendo"
+				// },
+				// {
+				// 	question: "This company created the game and watch handheld system",
+				// 	answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
+				// 	right: "Nintendo"
+				// },
+				// {
+				// 	question: "This game series stars Nathan Drake",
+				// 	answers: ["Uncharted", "Dark Souls", "Pokemon", "Animal Crossing",],
+				// 	right: "Uncharted"
+				// },
+				// {
+				// 	question: "Who created the Legend of Zelda?",
+				// 	answers: ["Satoru Iwata", "David Cage", "Shigeru Miyamoto", "Yuji Naka",],
+				// 	right: "Shigeru Miyamoto"
+				// },
+				// {
+				// 	question: "Which company had the slogan \'Genesis does what Nintendon\'t\'?",
+				// 	answers: ["Oculus", "Sony", "Microsoft", "Sega",],
+				// 	right: "Sega"
+				// },
+				// {
+				// 	question: "Which system came first?",
+				// 	answers: ["Xbox 360", "Wii U", "PS4", "Oculus",],
+				// 	right: "Xbox 360"
+				// },
+				// {
+				// 	question: "This fighting game series is famous for line \'Finish Him\'",
+				// 	answers: ["Injustice", "Street Fighter", "Clay Fighter 63.5", "Mortal Kombat",],
+				// 	right: "Mortal Kombat"
+				// }
 				],
 			],
 
@@ -216,6 +217,26 @@
 				$('#answer4').text(trivia.currentQuestion.answers[trivia.randomQ[3]]);
 			},
 
+			printCorrect: function() {
+
+			},
+
+			printIncorrect: function() {
+
+			},			
+
+			printTimeout: function() {
+
+			},
+
+			printReset: function() {
+				$("#replacer").html("<div class=\"row\" id=\"replacer\"><div class=\"col-lg-5\" ><div class=\"row\"><h3 class=\"text-center\">Question</h3></div><div id=\"question\" class=\"question\"><button class=\"center-block btn btn-danger\" id=\"vg\">Video Games</button><button class=\"center-block btn btn-danger\" id=\"ot\">Other Topic</button></div></div><div class=\"col-lg-7\"><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer1\">Answer 1</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer2\">Answer2</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer3\">Answer 3</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer4\">Answer 4</div></div><div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"timer\">timer</div></div></div></div></div>")
+			},
+
+			printWin: function() {
+				$("#replacer").html("<p class='text-center'>Congrats on finishing!  Your score was " + trivia.score + " out of " + trivia.usedQuestions.length + ".  Refresh to try again</p>")
+			},
+
 			//removes current question from the question pool
 			removeQuestion: function() {
 				trivia.usedQuestions.push(trivia.currentQuestion)
@@ -229,12 +250,12 @@
 					trivia.printScore();
 					trivia.removeQuestion();
 					// trivia.printScore();
-					// trivia.perSecond();
+					trivia.perSecond();
 				}
 				else {
 					console.log("broke from next question");
 					//have it create screen of score and time?
-					trivia.winBoard()
+					trivia.printWin()
 				}
 			},
 
@@ -264,40 +285,47 @@
 				}
 			},
 
-			winBoard: function() {
-				$("#winScreen").html("<p class='text-center'>Congrats on finishing!  Your score was " + trivia.score + " out of " + trivia.usedQuestions.length + ".  Refresh to try again</p>")
-			}
-
-			// clock: function() {
-			// 	trivia.timer -= 1
-			// 	trivia.printTime()
+			clock: function() {
+				trivia.timer -= 1
+				trivia.printTime()
 				
-			// 	if (trivia.timer <= 0) {
-			// 		if (trivia.questions[trivia.currentTopic].length === 0){
-			// 			alert("out of questions.  Sorry")
-			// 		}
-			// 		else {
-			// 			trivia.timer = 10;
-			// 			trivia.nextQuestion();
-			// 		}
-			// 	}
-			// },
+				if (trivia.timer <= 0) {
+					if (trivia.questions[trivia.currentTopic].length === 0){
+						alert("out of questions.  Sorry")
+					}
+					else {
+						trivia.clearTime();
+						trivia.nextQuestion();
+					}
+				}
+			},
 
-			// perSecond: function() {
-			// 	for (var i = 10; i>=1; i--) {
-			// 		if (trivia.timer===0){
-			// 			//find a way to break this all
-			// 		}
-			// 		else {
-			// 			trivia.printTime()
-			// 			setTimeout(trivia.clock, 1000*i);
-			// 		}
-			// 	}
-			// },
+			perSecond: function() {
+				for (var i = 10; i>=1; i--) {
+					if (trivia.timer===0){
+						//find a way to break this all
+					}
+					else {
+						trivia.printTime()
+						setTimeout(trivia.clock, 1000*i);
+					}
+				}
+			},
 
-			// printTime: function() {
-			// 	$('#timer').text(trivia.timer)
-			// },
+			printTime: function() {
+				$('#timer').text(trivia.timer)
+			},
+
+			clearTime: function() {
+				var id = window.setTimeout(function() {}, 0);
+
+				while (id--) {
+				    window.clearTimeout(id); // will do nothing if no timeout with id is present
+				    console.log("cleared time")
+				}
+
+				trivia.timer = 10;
+			},
 		}
 
 		//activating scripts
@@ -313,18 +341,22 @@
 		});
 		$('#answer1').on("click", function(event) {
 			var answer = $('#answer1').text();
+			trivia.clearTime();
 			trivia.checkAnswer(answer);
 		});
 		$('#answer2').on("click", function(event) {
 			var answer = $('#answer2').text();
+			trivia.clearTime();
 			trivia.checkAnswer(answer)
 		});
 		$('#answer3').on("click", function(event) {
 			var answer = $('#answer3').text();
+			trivia.clearTime();
 			trivia.checkAnswer(answer)
 		});
 		$('#answer4').on("click", function(event) {
 			var answer = $('#answer4').text();
+			trivia.clearTime();
 			trivia.checkAnswer(answer)
 		});
 	</script>
