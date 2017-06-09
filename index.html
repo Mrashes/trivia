@@ -15,14 +15,15 @@
 			<h4 class="text-center">To cross the otherside you see, you must answer questions 3</h4>
 		</div>
 
-		<div class="row">
+		<div class="row" id="winScreen">
 			<div class="col-lg-5" >
 				<div class="row">
 					<h3 class="text-center">Question</h3>
 				</div>
 				<!-- Question -->
 				<div id="question" class="question">
-					<button class="center-block" id="start">Commence</button>
+					<button class="center-block btn btn-danger" id="vg">Video Games</button>
+					<button class="center-block btn btn-danger" id="ot">Other Topic</button>
 				</div>
 			</div>
 			<div class="col-lg-7">
@@ -63,7 +64,61 @@
 		var trivia = {
 			//storage of questions.  Its an array so questions[x] is which question you have.
 			questions:  [
-				//video games
+				//video games/first topic
+				[
+				{
+					question: "Which of these games star a bear and a bird",
+					answers: ["Banjo-Kazooie", "Crash Bandicoot", "Street Fighter III", "Lion King",],
+					right: "Banjo-Kazooie"
+				},
+				{
+					question: "This dragon stared in a hit video game franchise",
+					answers: ["Crash Bandicoot", "Spyro", "Lara Croft", "Solid Snake",],
+					right: "Spyro"
+				},
+				{
+					question: "Which system came first?",
+					answers: ["Playstation", "Dreamcast", "Genesis", "Xbox",],
+					right: "Playstation"
+				},
+				{
+					question: "This company started as a playing card manufacturer",
+					answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
+					right: "Nintendo"
+				},
+				{
+					question: "This company created the game and watch handheld system",
+					answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
+					right: "Nintendo"
+				},
+				{
+					question: "This game series stars Nathan Drake",
+					answers: ["Uncharted", "Dark Souls", "Pokemon", "Animal Crossing",],
+					right: "Uncharted"
+				},
+				{
+					question: "Who created the Legend of Zelda?",
+					answers: ["Satoru Iwata", "David Cage", "Shigeru Miyamoto", "Yuji Naka",],
+					right: "Shigeru Miyamoto"
+				},
+				{
+					question: "Which company had the slogan \'Genesis does what Nintendon\'t\'?",
+					answers: ["Oculus", "Sony", "Microsoft", "Sega",],
+					right: "Sega"
+				},
+				{
+					question: "Which system came first?",
+					answers: ["Xbox 360", "Wii U", "PS4", "Oculus",],
+					right: "Xbox 360"
+				},
+				{
+					question: "This fighting game series is famous for line \'Finish Him\'",
+					answers: ["Injustice", "Street Fighter", "Clay Fighter 63.5", "Mortal Kombat",],
+					right: "Mortal Kombat"
+				}
+				],
+
+				//second topic
 				[{
 					question: "Which of these games star a bear and a bird",
 					answers: ["Banjo-Kazooie", "Crash Bandicoot", "Street Fighter III", "Lion King",],
@@ -113,9 +168,7 @@
 					question: "This fighting game series is famous for line \'Finish Him\'",
 					answers: ["Injustice", "Street Fighter", "Clay Fighter 63.5", "Mortal Kombat",],
 					right: "Mortal Kombat"
-				}],
-				[
-				//bachelorette questions
+				}
 				],
 			],
 
@@ -211,7 +264,9 @@
 				}
 			},
 
-			winBoard: function() {}
+			winBoard: function() {
+				$("#winScreen").html("<p class='text-center'>Congrats on finishing!  Your score was " + trivia.score + " out of " + trivia.usedQuestions.length + ".  Refresh to try again</p>")
+			}
 
 			// clock: function() {
 			// 	trivia.timer -= 1
@@ -246,7 +301,13 @@
 		}
 
 		//activating scripts
-		$("#start").on("click", function() {
+		$("#vg").on("click", function() {
+			trivia.currentTopic = 0;
+			trivia.nextQuestion();
+			//trivia.startTimer
+		});
+		$("#ot").on("click", function() {
+			trivia.currentTopic = 1;
 			trivia.nextQuestion()
 			//trivia.startTimer
 		});
