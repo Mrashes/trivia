@@ -118,19 +118,19 @@ var trivia = {
 	},
 
 	printCorrect: function() {
-		$("#replacer").html("<p>Congrats!  You got the question right! </p>");
+		$("#replacer").html("<p class=\"text-center\">Congrats!  You got the question right! </p>");
 		// setTimeout(trivia.printReset, 2900)
 		setTimeout(trivia.nextQuestion, 3000)
 	},
 
 	printIncorrect: function() {
-		$("#replacer").html("<p>Sorry, the correct answer was " + trivia.currentQuestion.right +"</p>");
+		$("#replacer").html("<p class=\"text-center\">Sorry, the correct answer was " + trivia.currentQuestion.right +"</p>");
 		// setTimeout(trivia.printReset, 2900)
 		setTimeout(trivia.nextQuestion, 3000)
 	},			
 
 	printTimeout: function() {
-		$("#replacer").html("<p>Sorry, you ran out of time.  The correct answer was " + trivia.currentQuestion.right +"</p>");
+		$("#replacer").html("<p class=\"text-center\">Sorry, you ran out of time.  The correct answer was " + trivia.currentQuestion.right +"</p>");
 		// setTimeout(trivia.printReset, 2900)
 		setTimeout(trivia.nextQuestion, 3000)
 	},
