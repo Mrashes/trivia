@@ -72,7 +72,7 @@
 					right: "Banjo-Kazooie"
 				},
 				{
-					question: "This dragon stared in a hit video game franchise",
+					question: "This dragon starred in a hit video game franchise",
 					answers: ["Crash Bandicoot", "Spyro", "Lara Croft", "Solid Snake",],
 					right: "Spyro"
 				},
@@ -87,7 +87,7 @@
 					right: "Nintendo"
 				},
 				{
-					question: "This company created the game and watch handheld system",
+					question: "This company created 'The Game and Watch' handheld system",
 					answers: ["Nintendo", "Sony", "Microsoft", "Sega",],
 					right: "Nintendo"
 				},
@@ -102,7 +102,7 @@
 					right: "Shigeru Miyamoto"
 				},
 				{
-					question: "Which company had the slogan \'Genesis does what Nintendon\'t\'?",
+					question: "Which company had the slogan 'Genesis does what Nintendon't'?",
 					answers: ["Oculus", "Sony", "Microsoft", "Sega",],
 					right: "Sega"
 				},
@@ -112,7 +112,7 @@
 					right: "Xbox 360"
 				},
 				{
-					question: "This fighting game series is famous for line \'Finish Him\'",
+					question: "This fighting game series is famous for line 'Finish Him'",
 					answers: ["Injustice", "Street Fighter", "Clay Fighter 63.5", "Mortal Kombat",],
 					right: "Mortal Kombat"
 				}
@@ -218,20 +218,27 @@
 			},
 
 			printCorrect: function() {
-
+				$("#replacer").html("<p>Congrats!  You got the question right! </p>");
+				// setTimeout(trivia.printReset, 2900)
+				setTimeout(trivia.nextQuestion, 3000)
 			},
 
 			printIncorrect: function() {
-
+				$("#replacer").html("<p>Sorry, the correct answer was " + trivia.currentQuestion.right +"</p>");
+				// setTimeout(trivia.printReset, 2900)
+				setTimeout(trivia.nextQuestion, 3000)
 			},			
 
 			printTimeout: function() {
-
+				$("#replacer").html("<p>Sorry, you ran out of time.  The correct answer was " + trivia.currentQuestion.right +"</p>");
+				// setTimeout(trivia.printReset, 2900)
+				setTimeout(trivia.nextQuestion, 3000)
 			},
 
-			// printReset: function() {
-			// 	$("#replacer").html("<div class=\"row\" id=\"replacer\"><div class=\"col-lg-5\" ><div class=\"row\"><h3 class=\"text-center\">Question</h3></div><div id=\"question\" class=\"question\"><button class=\"center-block btn btn-danger\" id=\"vg\">Video Games</button><button class=\"center-block btn btn-danger\" id=\"ot\">Other Topic</button></div></div><div class=\"col-lg-7\"><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer1\">Answer 1</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer2\">Answer2</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer3\">Answer 3</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer4\">Answer 4</div></div><div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"timer\">timer</div></div></div></div></div>")
-			// },
+			// If I mess with page layout this will not work right so I'm leaving it for now
+			printReset: function() {
+				$("#replacer").html("<div class=\"col-lg-5\" ><div class=\"row\"><h3 class=\"text-center\">Question</h3></div><div id=\"question\" class=\"question\"><button class=\"center-block btn btn-danger\" id=\"vg\">Video Games</button><button class=\"center-block btn btn-danger\" id=\"ot\">Other Topic</button></div></div><div class=\"col-lg-7\"><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer1\">Answer 1</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer2\">Answer2</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer3\">Answer 3</div></div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"answer4\">Answer 4</div></div><div><div class=\"panel panel-default\"><div class=\"panel-body text-center\" id=\"timer\">timer</div></div></div></div>")
+			},
 
 			printWin: function() {
 				$("#replacer").html("<p class='text-center'>Congrats on finishing!  Your score was " + trivia.score + " out of " + trivia.usedQuestions.length + ".  Refresh to try again</p>")
@@ -244,16 +251,14 @@
 			},
 
 			nextQuestion: function() {
-				if (trivia.questions[trivia.currentTopic].length > 0){
+				if (trivia.usedQuestions.length != trivia.questions[trivia.currentTopic].length){
 					trivia.newQuestion();
 					trivia.printCurrentTrivia();
 					trivia.printScore();
 					trivia.removeQuestion();
-					// trivia.printScore();
 					trivia.perSecond();
 				}
 				else {
-					console.log("broke from next question");
 					//have it create screen of score and time?
 					trivia.printWin()
 				}
@@ -277,10 +282,12 @@
 				if (answer == trivia.currentQuestion.right) {
 					console.log("winner!");
 					trivia.point();
+					// trivia.printCorrect();
 					trivia.nextQuestion();
 				}
 				else {
 					console.log("Wrong, next question")
+					// trivia.printIncorrect();
 					trivia.nextQuestion();
 				}
 			},
@@ -290,13 +297,8 @@
 				trivia.printTime()
 				
 				if (trivia.timer <= 0) {
-					if (trivia.questions[trivia.currentTopic].length === 0){
-						alert("out of questions.  Sorry")
-					}
-					else {
-						trivia.clearTime();
-						trivia.nextQuestion();
-					}
+					trivia.clearTime();
+					trivia.printTimeout();
 				}
 			},
 
